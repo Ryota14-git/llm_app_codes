@@ -14,16 +14,6 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
-###### dotenv を利用しない場合は消してください ######
-try:
-    from dotenv import load_dotenv
-    load_dotenv()
-except ImportError:
-    import warnings
-    warnings.warn("dotenv not found. Please make sure to set your environment variables manually.", ImportWarning)
-################################################
-
-
 SUMMARIZE_PROMPT = """以下のコンテンツについて、内容を300文字程度でわかりやすく要約してください。
 
 ========
@@ -96,30 +86,6 @@ def get_content(url):
     except:
         st.write(traceback.format_exc())  # エラーが発生した場合はエラー内容を表示
         return None
-
-
-MODEL_PRICES = {
-    "input": {
-        "gpt-3.5-turbo": 0.5 / 1_000_000,
-        "gpt-4o": 5 / 1_000_000
-    },
-    "output": {
-        "gpt-3.5-turbo": 1.5 / 1_000_000,
-        "gpt-4o": 15 / 1_000_000,
-    }
-}
-
-def get_message_counts(text):
-    if "gemini" in st.session_state.model_name:
-        return st.session_state.llm.get_num_tokens(text)
-    else:
-        # Claude 3 はトークナイザーを公開していないので、tiktoken を使ってトークン数をカウント
-        # これは正確なトークン数ではないが、大体のトークン数をカウントすることができる
-        if "gpt" in st.session_state.model_name:
-            encoding = tiktoken.encoding_for_model(st.session_state.model_name)
-        else:
-            encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")  # 仮のものを利用
-        return len(encoding.encode(text))
 
 
 def main():
