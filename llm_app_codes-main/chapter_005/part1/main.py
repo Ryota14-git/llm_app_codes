@@ -97,27 +97,6 @@ def get_content(url):
         return None
 
 
-def main():
-    init_page()
-    chain = init_chain()
-
-    # ユーザーの入力を監視
-    if url := st.text_input("URL: ", key="input"):
-        is_valid_url = validate_url(url)
-        if not is_valid_url:
-            st.write('Please input valid url')
-        else:
-            if content := get_content(url):
-                st.markdown("## Summary")
-                st.write_stream(chain.stream({"content": content}))
-                st.markdown("---")
-                st.markdown("## Original Text")
-                st.write(content)
-
-    # コストを表示する場合は第3章と同じ実装を追加してください
-    # calc_and_display_costs()
-
-
 MODEL_PRICES = {
     "input": {
         "gpt-3.5-turbo": 0.5 / 1_000_000,
@@ -168,6 +147,28 @@ def calc_and_display_costs():
     st.sidebar.markdown(f"**Total cost: ${cost:.5f}**")
     st.sidebar.markdown(f"- Input cost: ${input_cost:.5f}")
     st.sidebar.markdown(f"- Output cost: ${output_cost:.5f}")
+
+
+def main():
+    init_page()
+    chain = init_chain()
+
+    # ユーザーの入力を監視
+    if url := st.text_input("URL: ", key="input"):
+        is_valid_url = validate_url(url)
+        if not is_valid_url:
+            st.write('Please input valid url')
+        else:
+            if content := get_content(url):
+                st.markdown("## Summary")
+                st.write_stream(chain.stream({"content": content}))
+                st.markdown("---")
+                st.markdown("## Original Text")
+                st.write(content)
+
+    # コストを表示する場合は第3章と同じ実装を追加してください
+    calc_and_display_costs()
+
 
 if __name__ == '__main__':
     main()
