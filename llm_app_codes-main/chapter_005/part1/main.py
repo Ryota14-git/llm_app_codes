@@ -55,7 +55,7 @@ def init_messages():
 
 
 def select_model(temperature=0):
-    models = ("GPT-3.5", "GPT-4", "Claude 3.5 Sonnet", "Gemini 1.5 Pro")
+    models = ("GPT-3.5", "GPT-4")
     model = st.sidebar.radio("Choose a model:", models)
     if model == "GPT-3.5":
         return ChatOpenAI(
