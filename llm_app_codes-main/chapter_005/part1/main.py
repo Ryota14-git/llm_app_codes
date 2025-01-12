@@ -7,8 +7,7 @@ from langchain_core.output_parsers import StrOutputParser
 
 # models
 from langchain_openai import ChatOpenAI
-from langchain_anthropic import ChatAnthropic
-from langchain_google_genai import ChatGoogleGenerativeAI
+
 
 import requests
 from bs4 import BeautifulSoup
@@ -58,16 +57,7 @@ def select_model(temperature=0):
             temperature=temperature,
             model_name="gpt-4o"
         )
-    elif model == "Claude 3.5 Sonnet":
-        return ChatAnthropic(
-            temperature=temperature,
-            model_name="claude-3-5-sonnet-20240620"
-        )
-    elif model == "Gemini 1.5 Pro":
-        return ChatGoogleGenerativeAI(
-            temperature=temperature,
-            model="gemini-1.5-pro-latest"
-        )
+   
 
 
 def init_chain():
@@ -126,6 +116,45 @@ def main():
     # コストを表示する場合は第3章と同じ実装を追加してください
     # calc_and_display_costs()
 
+
+MODEL_PRICES = {
+    "input": {
+        "gpt-3.5-turbo": 0.5 / 1_000_000,
+        "gpt-4o": 5 / 1_000_000
+    },
+    "output": {
+        "gpt-3.5-turbo": 1.5 / 1_000_000,
+        "gpt-4o": 15 / 1_000_000,
+    }
+}
+
+def calc_and_display_costs():
+    output_count = 0
+    input_count = 0
+    for role, message in st.session_state.message_history:
+        # tiktoken でトークン数をカウント
+        token_count = get_message_counts(message)
+        if role == "ai":
+            output_count += token_count
+        else:
+            input_count += token_count
+
+    # 初期状態で System Message のみが履歴に入っている場合はまだAPIコールが行われていない
+    if len(st.session_state.message_history) == 1:
+        return
+
+    input_cost = MODEL_PRICES['input'][st.session_state.model_name] * input_count
+    output_cost = MODEL_PRICES['output'][st.session_state.model_name] * output_count
+    if "gemini" in st.session_state.model_name and (input_count + output_count) > 128000:
+        input_cost *= 2
+        output_cost *= 2
+
+    cost = output_cost + input_cost
+
+    st.sidebar.markdown("## Costs")
+    st.sidebar.markdown(f"**Total cost: ${cost:.5f}**")
+    st.sidebar.markdown(f"- Input cost: ${input_cost:.5f}")
+    st.sidebar.markdown(f"- Output cost: ${output_cost:.5f}")
 
 if __name__ == '__main__':
     main()
