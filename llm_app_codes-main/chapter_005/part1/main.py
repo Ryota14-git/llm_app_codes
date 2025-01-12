@@ -45,6 +45,15 @@ def init_page():
     st.sidebar.title("Options")
 
 
+def init_messages():
+    clear_button = st.sidebar.button("Clear Conversation", key="clear")
+    # clear_button が押された場合や message_history がまだ存在しない場合に初期化
+    if clear_button or "message_history" not in st.session_state:
+        st.session_state.message_history = [
+            ("system", "You are a helpful assistant.")
+        ]
+
+
 def select_model(temperature=0):
     models = ("GPT-3.5", "GPT-4", "Claude 3.5 Sonnet", "Gemini 1.5 Pro")
     model = st.sidebar.radio("Choose a model:", models)
