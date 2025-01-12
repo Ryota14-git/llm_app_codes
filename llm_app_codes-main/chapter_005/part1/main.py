@@ -45,14 +45,6 @@ def init_page():
     st.sidebar.title("Options")
 
 
-def init_messages():
-    clear_button = st.sidebar.button("Clear Conversation", key="clear")
-    # clear_button が押された場合や message_history がまだ存在しない場合に初期化
-    if clear_button or "message_history" not in st.session_state:
-        st.session_state.message_history = [
-            ("system", "You are a helpful assistant.")
-        ]
-
 
 def select_model(temperature=0):
     models = ("GPT-3.5", "GPT-4")
@@ -128,34 +120,6 @@ def get_message_counts(text):
         else:
             encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")  # 仮のものを利用
         return len(encoding.encode(text))
-
-def calc_and_display_costs():
-    output_count = 0
-    input_count = 0
-    for role, message in st.session_state.message_history:
-        # tiktoken でトークン数をカウント
-        token_count = get_message_counts(message)
-        if role == "ai":
-            output_count += token_count
-        else:
-            input_count += token_count
-
-    # 初期状態で System Message のみが履歴に入っている場合はまだAPIコールが行われていない
-    if len(st.session_state.message_history) == 1:
-        return
-
-    input_cost = MODEL_PRICES['input'][st.session_state.model_name] * input_count
-    output_cost = MODEL_PRICES['output'][st.session_state.model_name] * output_count
-    if "gemini" in st.session_state.model_name and (input_count + output_count) > 128000:
-        input_cost *= 2
-        output_cost *= 2
-
-    cost = output_cost + input_cost
-
-    st.sidebar.markdown("## Costs")
-    st.sidebar.markdown(f"**Total cost: ${cost:.5f}**")
-    st.sidebar.markdown(f"- Input cost: ${input_cost:.5f}")
-    st.sidebar.markdown(f"- Output cost: ${output_cost:.5f}")
 
 
 def main():
