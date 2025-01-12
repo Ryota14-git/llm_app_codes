@@ -176,7 +176,7 @@ def main():
                 st.write(content)
 
     # コストを表示する場合は第3章と同じ実装を追加してください
-    calc_and_display_costs()
+    #calc_and_display_costs()
 
 
 if __name__ == '__main__':
