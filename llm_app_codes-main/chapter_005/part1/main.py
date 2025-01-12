@@ -2,8 +2,9 @@
 
 import traceback
 import streamlit as st
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import StrOutputParser
+
+from langchain.prompts import ChatPromptTemplate
+from langchain.output_parsers import StrOutputParser
 
 # models
 from langchain_openai import ChatOpenAI
