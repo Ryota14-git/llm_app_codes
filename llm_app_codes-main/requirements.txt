@@ -8,3 +8,37 @@ langchain== 0.2.17
 langchain-community==0.2.19
 langchain-openai==0.1.25
 langchain-core==0.2.43
+
+## chapter 5
+# Webサイト要約アプリ用
+requests==2.32.3
+beautifulsoup4==4.12.3
+langchain_text_splitters==0.2.4
+
+# Youtube要約アプリ用
+youtube-transcript-api==0.6.3
+pytube==15.0.0
+
+
+
+###最新版に変更する
+# chapter 7
+PyMuPDF==1.23.25
+faiss-cpu==1.7.4
+
+# chapter 8
+langsmith==0.1.54
+
+# chapter 9
+duckduckgo_search==4.2
+html2text==2020.1.16
+lxml[html_clean]==5.2.1
+readability-lxml==0.8.1
+
+# chapter 10
+streamlit-feedback==0.1.3
+
+# chapter 11
+python-magic==0.4.27
+google-cloud-bigquery==3.21.0
+db-dtypes==1.2.0
