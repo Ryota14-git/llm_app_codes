@@ -18,3 +18,8 @@ langchain_text_splitters==0.2.4
 # Youtube要約アプリ用
 youtube-transcript-api==0.6.3
 pytube==15.0.0
+
+
+# chapter 7
+PyMuPDF==1.24.11
+faiss-cpu==1.8.0
