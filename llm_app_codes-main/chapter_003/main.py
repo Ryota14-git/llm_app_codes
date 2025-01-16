@@ -52,7 +52,7 @@ def select_model():
     temperature = st.sidebar.slider(
         "Temperature:", min_value=0.0, max_value=2.0, value=0.0, step=0.01)
 
-    models = ("GPT-3.5", "GPT-4", "Claude 3.5 Sonnet", "Gemini 1.5 Pro")
+    models = ("GPT-3.5", "GPT-4")
     model = st.sidebar.radio("Choose a model:", models)
     if model == "GPT-3.5":
         st.session_state.model_name = "gpt-3.5-turbo"
