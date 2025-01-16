@@ -5,8 +5,6 @@ from langchain_core.output_parsers import StrOutputParser
 
 # models
 from langchain_openai import ChatOpenAI
-from langchain_anthropic import ChatAnthropic
-from langchain_google_genai import ChatGoogleGenerativeAI
 
 ###### dotenv を利用しない場合は消してください ######
 try:
@@ -21,15 +19,11 @@ except ImportError:
 MODEL_PRICES = {
     "input": {
         "gpt-3.5-turbo": 0.5 / 1_000_000,
-        "gpt-4o": 5 / 1_000_000,
-        "claude-3-5-sonnet-20240620": 3 / 1_000_000,
-        "gemini-1.5-pro-latest": 3.5 / 1_000_000
+        "gpt-4o": 5 / 1_000_000
     },
     "output": {
         "gpt-3.5-turbo": 1.5 / 1_000_000,
-        "gpt-4o": 15 / 1_000_000,
-        "claude-3-5-sonnet-20240620": 15 / 1_000_000,
-        "gemini-1.5-pro-latest": 10.5 / 1_000_000
+        "gpt-4o": 15 / 1_000_000
     }
 }
 
@@ -71,18 +65,6 @@ def select_model():
         return ChatOpenAI(
             temperature=temperature,
             model_name=st.session_state.model_name
-        )
-    elif model == "Claude 3.5 Sonnet":
-        st.session_state.model_name = "claude-3-5-sonnet-20240620"
-        return ChatAnthropic(
-            temperature=temperature,
-            model_name=st.session_state.model_name
-        )
-    elif model == "Gemini 1.5 Pro":
-        st.session_state.model_name = "gemini-1.5-pro-latest"
-        return ChatGoogleGenerativeAI(
-            temperature=temperature,
-            model=st.session_state.model_name
         )
 
 
