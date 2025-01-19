@@ -6,11 +6,12 @@ from readability import Document
 from langchain_core.tools import tool
 from langchain_core.pydantic_v1 import (BaseModel, Field)
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from pydantic import BaseModel, Field, conint
 
 
 class FetchPageInput(BaseModel):
     url: str = Field()
-    page_num: int = Field(0, ge=0)
+    page_num: conint(ge=0) = Field(0)  # `ge=0` を適用
 
 
 @tool(args_schema=FetchPageInput)
