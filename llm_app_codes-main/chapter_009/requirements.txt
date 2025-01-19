@@ -1,34 +1,31 @@
 # chapter 1
-openai==1.59.6
-
-
-tiktoken==0.7.0
-streamlit==1.33.0
-langchain== 0.3.14
-langchain-community==0.2.19
-langchain-openai==0.1.25
-langchain-core==0.2.43
+openai
+tiktoken
+streamlit
+langchain
+langchain-community
+langchain-openai
+langchain-core
 
 ## chapter 5
 # Webサイト要約アプリ用
-requests==2.32.3
-beautifulsoup4==4.12.3
-langchain_text_splitters==0.2.4
+requests
+beautifulsoup4
+langchain_text_splitters
 
 # Youtube要約アプリ用
-youtube-transcript-api==0.6.3
-pytube==15.0.0
-
+youtube-transcript-api
+pytube
 
 # chapter 7
-PyMuPDF==1.24.11
-faiss-cpu==1.8.0
+PyMuPDF
+faiss-cpu
 
 # chapter 8
-langsmith==0.2.10
+langsmith
 
 # chapter 9
-duckduckgo_search==7.2.1
-html2text==2024.2.26
-lxml[html_clean]==5.3.0
-readability-lxml==0.8.1
+duckduckgo_search
+html2text
+lxml[html_clean]
+readability-lxml
