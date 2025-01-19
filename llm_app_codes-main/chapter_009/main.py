@@ -8,8 +8,6 @@ from langchain_community.callbacks import StreamlitCallbackHandler
 
 # models
 from langchain_openai import ChatOpenAI
-from langchain_anthropic import ChatAnthropic
-from langchain_google_genai import ChatGoogleGenerativeAI
 
 # custom tools
 from tools.search_ddg import search_ddg
@@ -93,12 +91,6 @@ def select_model():
     elif model == "GPT-4":
         return ChatOpenAI(
             temperature=0, model_name="gpt-4o")
-    elif model == "Claude 3.5 Sonnet":
-        return ChatAnthropic(
-            temperature=0, model_name="claude-3-5-sonnet-20240620")
-    elif model == "Gemini 1.5 Pro":
-        return ChatGoogleGenerativeAI(
-            temperature=0, model="gemini-1.5-pro-latest")
 
 
 def create_agent():
